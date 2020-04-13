@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart Page</title>
+</head>
+<body>
+    <h3>
+        Your Bill
+    </h3>
+    <form method="post" th:action="@{/cart/update}">
+        <table border="1">
+            <tr>
+                <th>Option</th>
+                <th>Product Code</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Product GST</th>
+                <th>
+                    Quantity
+                     <input type="submit" value="update"/>
+                </th>
+                <th>Sub total</th>
+            </tr>
+            <tr th:each="item : ${session.cart}">
+                <td align="center">
+                    <a th:href="${'/cart/remove/' + item.product.code}">Remove</a>
+                </td>
+                <td th:text="${item.product.code}"></td>
+                <td th:text="${item.product.name}"></td>
+                <td th:text="${item.product.price}"></td>
+                <td th:text="${item.product.gst}"></td>
+                <td>
+                    <input type="number" th:value="${item.quantity}" name="quantity" style="width: 50px;" />
+                </td>
+                <td th:text="${item.product.price * item.quantity}"></td>
+            </tr>
+
+        </table>
+    </form>
+    <table>
+    <tr>
+        <td>Gross Total: Rs.</td>
+        <td th:text="${total}"></td>
+    </tr>
+    </table>
+
+    <br/>
+    <a th:href="${'/'}">Continue Shopping</a>
+</body>
+</html>
