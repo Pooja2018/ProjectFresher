@@ -15,8 +15,11 @@ public class Product implements Serializable {
     private static final long serialVersionUID = -1000119078147252957L;
 
     @Id
-    @Column(name = "product_code", length = 20, nullable = false)
+    @Column(name = "code", length = 20, nullable = false)
     private Long code;
+
+    @Column(name = "product_code", length = 11, nullable = false)
+    private String productCode;
 
     @Column(name = "product_name", length = 255, nullable = false)
     private String name;
@@ -37,6 +40,14 @@ public class Product implements Serializable {
 
     public void setCode(Long code) {
         this.code = code;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
     public String getName() {
