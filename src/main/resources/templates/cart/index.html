@@ -4,30 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Cart Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <style>
+    table
+    {
+        width: auto !important;
+        left-padding: 150px;
+    }
+    a:link, a:visited {
+      border-radius: 25px;
+      background-color: #f1c40f;
+      color: white;
+      padding: 12px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    a:hover, a:active {
+      background-color: #e67e22;
+    }
+    </style>
+
 </head>
 <body>
-    <h3>
+    <h3 align="center">
         Your Bill
     </h3>
     <form method="post" th:action="@{/cart/update}">
-        <table border="1">
+        <table align="center" class="table table-bordered">
             <tr>
-                <th>Option</th>
-                <th>Product Code</th>
-                <th>Product Name</th>
-                <th>Product Price</th>
-                <th>Product GST</th>
-                <th>
+                <th scope="col">Option</th>
+                <th scope="col">Id:</th>
+                <th scope="col">Product Code</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Price(in Rs.)</th>
+                <th scope="col">Product GST(%)</th>
+                <th scope="col">
                     Quantity
                      <input type="submit" value="update"/>
                 </th>
-                <th>Sub total</th>
+                <th scope="col">Sub total</th>
             </tr>
             <tr th:each="item : ${session.cart}">
                 <td align="center">
                     <a th:href="${'/cart/remove/' + item.product.code}">Remove</a>
                 </td>
-                <td th:text="${item.product.code}"></td>
+                <td scope="row" th:text="${item.product.code}"></td>
+                <td th:text="${item.product.productCode}"></td>
                 <td th:text="${item.product.name}"></td>
                 <td th:text="${item.product.price}"></td>
                 <td th:text="${item.product.gst}"></td>
@@ -36,17 +61,18 @@
                 </td>
                 <td th:text="${item.product.price * item.quantity}"></td>
             </tr>
+            <tr>
+                <td colspan="7">Gross Total: Rs.</td>
+                <td th:text="${total}"></td>
+            </tr>
 
         </table>
     </form>
-    <table>
-    <tr>
-        <td>Gross Total: Rs.</td>
-        <td th:text="${total}"></td>
-    </tr>
-    </table>
 
     <br/>
-    <a th:href="${'/'}">Continue Shopping</a>
+    <p align="center">
+    <a th:href="${'/'}">Add More Products</a>
+    </p>
+    <h3 align="center">Note: Please click on update button to update new quantities.</h3>
 </body>
 </html>
