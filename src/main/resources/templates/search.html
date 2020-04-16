@@ -3,11 +3,10 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Search</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <style>
-
       .search{
       border-radius: 25px;
       background-color: #34495e;
@@ -43,46 +42,51 @@
 <body>
 <div align="center">
     <h1>Ramkrishna Groceries</h1>
-    <h3>|| Product List ||</h3>
-    <a href="/new">Create New Product</a>
+    <h3>Your Searched Products Are</h3>
     <br/>
     <br/>
     <form method="get" action="search">
-        <input class="textbox" type="text" name="keyword" placeholder="Search..." />
+        <input class="textbox" type="text" name="keyword" placeholder="Search..."/>
         <input class="search" type="submit" value="Search" />
     </form>
     <br/>
-    <table class="table table-hover" border="1" cellpadding="10">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Product Code</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Product Price(in Rs.)</th>
-            <th scope="col">Product GST(%)</th>
-            <th scope="col">Actions</th>
-            <th scope="col">Add Product</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${listProducts}">
-            <td scope="row" th:text="${product.code}">Id</td>
-            <td scope="row" th:text="${product.productCode}">Product Code</td>
-            <td th:text="${product.name}">Product Name</td>
-            <td th:text="${product.price}">Product Price</td>
-            <td th:text="${product.gst}">Product GST</td>
-            <td>
-                <a th:href="@{'/edit/' + ${product.code}}">Edit</a>
-                &nbsp;&nbsp;&nbsp;
-                <a th:href="@{'/delete/' + ${product.code}}">Delete</a>
-            </td>
-            <td>
-                <a th:href="${'/cart/buy/' + product.code}">Buy Now</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </div>
+<table class="table table-hover" border="1" cellpadding="10">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Product Code</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Product Price(in Rs.)</th>
+        <th scope="col">Product GST(%)</th>
+        <th scope="col">Actions</th>
+        <th scope="col">Add Product</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${result}">
+        <td scope="row" th:text="${product.code}">Id</td>
+        <td scope="row" th:text="${product.productCode}">Product Code</td>
+        <td th:text="${product.name}">Product Name</td>
+        <td th:text="${product.price}">Product Price</td>
+        <td th:text="${product.gst}">Product GST</td>
+        <td>
+            <a th:href="@{'/edit/' + ${product.code}}">Edit</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{'/delete/' + ${product.code}}">Delete</a>
+        </td>
+        <td>
+            <a th:href="${'/cart/buy/' + product.code}">Buy Now</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<p align="center">
+    <a th:href="${'/'}">Show All Products</a>
+</p>
+
+
 </body>
 </body>
 </html>

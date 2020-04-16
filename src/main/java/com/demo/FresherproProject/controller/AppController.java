@@ -56,4 +56,15 @@ public class AppController {
         service.delete(id);
         return "redirect:/";
     }
+
+    @RequestMapping("/search")
+    public ModelAndView search(@RequestParam String keyword) {
+        List<Product> result = service.search(keyword);
+        ModelAndView mav = new ModelAndView("search");
+        mav.addObject("result", result);
+
+        return mav;
+    }
+
+
 }
